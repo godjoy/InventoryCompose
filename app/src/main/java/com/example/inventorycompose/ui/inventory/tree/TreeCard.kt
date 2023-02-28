@@ -1,4 +1,4 @@
-package com.example.inventorycompose.ui.inventory
+package com.example.inventorycompose.ui.inventory.tree
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -13,19 +13,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.inventorycompose.ui.model.TreeState
-import com.example.inventorycompose.ui.model.mockTreeState
+import com.example.inventorycompose.ui.model.TreeItem
+import com.example.inventorycompose.ui.model.mockTreeItem
 import com.example.inventorycompose.ui.util.mapToDrawableId
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TreeCard(
-    treeState: TreeState,
+    treeItem: TreeItem,
     onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var color = Color.Transparent
-    if (treeState.isSelected) color = Color.Green
+    if (treeItem.isSelected) color = Color.Green
 
     Card(
         shape = RoundedCornerShape(5.dp),
@@ -35,10 +35,10 @@ fun TreeCard(
             .width(53.dp)
             .height(58.dp)
             .border(2.dp, color, shape = RoundedCornerShape(5.dp)),
-        onClick = { onSelect(treeState.id) }
+        onClick = { onSelect(treeItem.id) }
     ) {
         Image(
-            painter = painterResource(treeState.id.mapToDrawableId()),
+            painter = painterResource(treeItem.id.mapToDrawableId()),
             contentDescription = null,
             contentScale = ContentScale.Inside
         )
@@ -48,5 +48,5 @@ fun TreeCard(
 @Preview
 @Composable
 fun TreeCardPreview() {
-    TreeCard(treeState = mockTreeState, { })
+    TreeCard(treeItem = mockTreeItem, { })
 }
