@@ -3,15 +3,18 @@ package com.example.inventorycompose.data
 import com.example.inventorycompose.domain.model.Mind
 import com.example.inventorycompose.domain.repository.GardenRepository
 import com.example.inventorycompose.util.Result
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 
 class MockGardenRepositoryImpl : GardenRepository {
-    override fun getGarden(): Flow<Result<List<Mind>>> {
-        TODO("Not yet implemented")
-    }
+    private var mockGarden = listOf<Mind>(
+        Mind(5,1),
+        Mind(6,5),
+        Mind(11,32)
+    )
 
-    override suspend fun plantMind(mind: Mind): Result<Long> {
-        TODO("Not yet implemented")
+    override fun getGarden(): Flow<Result<List<Mind>>> = flow {
+        emit(Result.Loading)
+        emit(Result.Success(mockGarden))
     }
 
 }
